@@ -19,6 +19,8 @@ const Promise = function(fn, pre){
 }
 
 Promise.prototype.resolve = function(d){
+    if(d instanceof Promise){
+    }
     this.state = FULFILL;
     this.result = d;
     this.next();
@@ -56,6 +58,7 @@ Promise.prototype.then = function(fn, failCallback){
     }, this);
     return this.nextPromise;
 }
+
 Promise.prototype.catch = function(fn){
     let self = this;
     this.failCallback = fn;
