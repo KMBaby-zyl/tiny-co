@@ -1,4 +1,4 @@
-var Promise = require('./promise');
+//var Promise = require('./promise');
 
 
 var a = function (flag){
@@ -24,3 +24,6 @@ a(2).then(function(flag){
     console.log('fail');
     console.log(f);
 });
+
+
+
