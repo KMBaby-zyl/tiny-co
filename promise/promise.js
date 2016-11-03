@@ -20,6 +20,8 @@ const Promise = function(fn, pre){
 
 Promise.prototype.resolve = function(d){
     if(d instanceof Promise){
+        insertPromise(this, d);
+        return;
     }
     this.state = FULFILL;
     this.result = d;
@@ -45,18 +47,21 @@ Promise.prototype.then = function(fn, failCallback){
         //console.log('runCalback ' + 'pre' + this.pre.id + 'this ' + this.id );
         // ispromise
         if(r && r.state == 'init'){
-            this.nextPromise.pre = r;
-            r.nextPromise = this.nextPromise;
-            self.nextPromise = r;    
-            r.successCallback = this.successCallback;
-            r.failCallback = this.failCallback;
-            
-            r.pre = self;
+            insertPromise(this, r);
         }else{
             resolve(r);
         }
     }, this);
     return this.nextPromise;
+}
+
+function insertPromise(promise, r){
+    //promise.pre.nextPromise = r;    
+    promise.nextPromise.pre = r;
+    r.nextPromise = promise.nextPromise;
+    r.successCallback = promise.successCallback;
+    r.failCallback = promise.failCallback;
+    r.pre = promise.pre;
 }
 
 Promise.prototype.catch = function(fn){

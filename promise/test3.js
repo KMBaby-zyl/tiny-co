@@ -1,13 +1,37 @@
 var Promise = require('./promise');
 
-var p1 = new Promise(function (resolve, reject) {
-  setTimeout(() => reject(new Error('fail')), 3000)
-})
+var b = function(flag){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+        console.log('b')
+            resolve(flag);
+        }, 2000)
+    });
+}
 
-var p2 = new Promise(function (resolve, reject) {
-  setTimeout(() => resolve(p1), 1000)
-})
+var a = function (flag){
+    return new Promise(function(resolve, reject){
+       setTimeout(function(){
+           console.log(flag + 1);
+           if(flag == 5) reject('flagerror' + flag);
+           else resolve(b(flag +1));
+            
+       }, 2000); 
+    });
+}
 
-p2
-  .then(result => console.log(result))
-  .catch(error => console.log(error))
+
+a(2).then(function(flag){
+    console.log('callback1 ' + flag);
+    //return a(flag);
+})
+.then(function(a){
+    console.log('callback2 ' + a)
+})
+.catch(function(f){
+    console.log('fail');
+    console.log(f);
+});
+
+
+
