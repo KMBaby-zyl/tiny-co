@@ -1,6 +1,7 @@
 /*
  * promise
  */
+var asap = require('asap/raw');
 const REJECT = 'reject';
 const FULFILL = 'fulfill';
 let id = 0;
@@ -35,10 +36,15 @@ Promise.prototype.reject = function(d){
     this.next();
     return this;
 }
-//
+// 
 Promise.prototype.then = function(fn, failCallback){
     let self = this;
-    this.successCallback = fn;
+
+    this.successCallback = function(){
+      asap(function(){
+        fn();
+      });
+    };
     this.failCallback = failCallback || '';
     //console.log('then ' + this.id);
 
@@ -89,7 +95,8 @@ Promise.prototype.next = function(){
 }
 
 Promise.prototype.run = function(){
-    this.fn(this.resolve.bind(this), this.reject.bind(this));
+  var self = this;
+    self.fn(self.resolve.bind(self), self.reject.bind(self));
 }
 
 

@@ -1,3 +1,4 @@
+//var Promise = require('./promise');
 var Promise = require('promise');
 
 var getAll = function () {
@@ -7,7 +8,6 @@ var getAll = function () {
     resolve();
   });
 }
-
 
 
 getAll().then(function(){
