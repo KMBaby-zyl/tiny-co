@@ -6,13 +6,14 @@ var a = function (flag){
            console.log(flag + 1);
            if(flag == 5) reject('flagerror' + flag);
            else resolve(flag +1);
-            
-       }, 2000); 
+
+       }, 2000);
     });
 }
 
 
-a(2).then(function(flag){
+a(2)
+.then(function(flag){
     console.log('callback1 ' + flag);
     return a(flag);
 })
@@ -23,6 +24,3 @@ a(2).then(function(flag){
     console.log('fail');
     console.log(f);
 });
-
-
-

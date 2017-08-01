@@ -1,6 +1,6 @@
 var Promise = require('../promise/promise.js');
 
-
+// promise 的自执行
 const co = function(gen){
 
     var g = gen();
@@ -18,6 +18,3 @@ const co = function(gen){
 
 
 module.exports = co;
-
-
-
