@@ -1,3 +1,4 @@
+const regeneratorRuntime = require("regenerator-runtime");
 const co = require('co');
 
 function sleep(){
