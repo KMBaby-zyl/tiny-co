@@ -5,12 +5,12 @@ function sleep(x){
     setTimeout(() => {
       console.log(x);
       resolve(x);
-    }, 2000);
+    }, x);
   });
 };
 
 async function run() {
-  var a = await sleep(2);
+  var a = await promise.all([sleep(2000), sleep(3000)]);
   console.log(1);
 
   sleep(3);
