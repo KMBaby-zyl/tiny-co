@@ -25,4 +25,5 @@ const asyncFun2 = function(){
   })
 }
 
-promise.all([asyncFun1(), asyncFun2()]).then(()=> console.log(3));
+promise.all([asyncFun1(), asyncFun2()])
+  .then(()=> console.log(3));
